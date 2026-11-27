@@ -33,10 +33,10 @@ dist_behind = 2.5;
 height_des  = 1.6;
 
 % CBF parameters
-cbf_params.mu            = 1.2;
+cbf_params.mu            = 0.4; % for Cristofaro theorem it should be <0.46
 cbf_params.r_drone       = 0.45;   
-cbf_params.d_margin      = 1.25;   % safety margin [m] (d_min = 1.0 m)
-cbf_params.delta1_offset = 0.8;
+cbf_params.d_margin      = 0.25;   % safety margin [m] 
+cbf_params.delta1_offset = 0.30;
 
 %starting simulation
 sim.startSimulation();
@@ -82,6 +82,7 @@ for k = 1:N
     for i = 1:num_obs
         p_obs_sim       = cell2mat(sim.getObjectPosition(obs_handles(i), -1))';
         [p_obs_i, ~, ~, ~] = sim2ned(p_obs_sim, zeros(3,1), eye(3), zeros(3,1));
+        p_obs_i(3) = p(3); % put tree at right height
         P_obs_ned(:, i) = p_obs_i;
         dists_3d(i)     = norm(p - p_obs_i);
     end

@@ -14,5 +14,5 @@ Pb = [1  0  0;
 p_ned     = Pw * p_sim;
 dp_ned    = Pw * dp_sim;
 R_ned     = Pw * R_sim * Pb';
-Omega_ned = Pb * Omega_sim;
+Omega_ned = Pb * (R_sim' * Omega_sim);
 end
